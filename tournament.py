@@ -70,6 +70,12 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    DB = psycopg2.connect("dbname=tournament")
+    c = DB.cursor()
+    c.execute("SELECT matches.id, win_record FROM matches, standings GROUP BY win_record")
+    rows = c.fetchall()
+    DB.close()
+    return rows
 
 
 def reportMatch(winner, loser):
