@@ -5,10 +5,22 @@
 --
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
+
+/* Create DB and establish schema, drop first to ensure clean file */
+DROP DATABASE tournament;
 CREATE DATABASE tournament;
 \c tournament;
 
-CREATE TABLE players (player_id SERIAL primary key, name TEXT);
+CREATE TABLE players (id SERIAL PRIMARY KEY, name TEXT);
 
-CREATE TABLE matches (round_id integer, match_id integer, 
-	                  winner integer, loser integer);
+CREATE TABLE matches (round_id INTEGER, match_id INTEGER, 
+	                  winner INTEGER, loser INTEGER);
+
+/* Create views to simplify reusable Select statements */
+CREATE VIEW win_count AS
+  SELECT players.id, players.name, COUNT(matches.winner) AS wins
+  FROM players LEFT JOIN matches
+  ON players.id = matches.winner OR players.id = matches.loser
+  GROUP BY players.id
+  ORDER BY wins DESC
+
