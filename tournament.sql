@@ -10,5 +10,5 @@ CREATE DATABASE tournament;
 
 CREATE TABLE players (player_id SERIAL primary key, name TEXT);
 
-CREATE TABLE matches (round_id integer, match_id integer, player1 integer,
-                      player2 integer, winner integer, loser integer);
+CREATE TABLE matches (round_id integer, match_id integer, 
+	                  winner integer, loser integer);

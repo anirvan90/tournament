@@ -79,6 +79,9 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+    DB = psycopg2.connect("dbname=tournament")
+    c = DB.cursor()
+    c.execute("INSERT INTO matches ")
  
  
 def swissPairings():
