@@ -87,7 +87,9 @@ def reportMatch(winner, loser):
     """
     DB = psycopg2.connect("dbname=tournament")
     c = DB.cursor()
-    c.execute("INSERT INTO matches ")
+    c.execute("INSERT INTO matches (winner, loser) VALUES (%s,%s)",(winner,loser,))
+    DB.commit()
+    DB.close()
  
  
 def swissPairings():
