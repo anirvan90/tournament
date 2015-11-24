@@ -72,7 +72,7 @@ def playerStandings():
     """
     DB = psycopg2.connect("dbname=tournament")
     c = DB.cursor()
-    c.execute("SELECT matches.id, win_record FROM matches, standings GROUP BY win_record")
+    c.execute("SELECT * FROM standings")
     rows = c.fetchall()
     DB.close()
     return rows
@@ -85,12 +85,7 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-    DB = psycopg2.connect("dbname=tournament")
-    c = DB.cursor()
-    c.execute("INSERT INTO matches (winner, loser) VALUES (%s,%s)",(winner,loser,))
-    DB.commit()
-    DB.close()
- 
+   
  
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
