@@ -34,7 +34,10 @@ CREATE VIEW player_wins AS
 
 /* Create standings view */
 CREATE VIEW standings AS
-  SELECT * FROM matches_played
+  SELECT matches_played.id, matches_played.name,
+  COALESCE(player_wins.wins,0) AS wins,
+  matches_played.played
+  FROM matches_played
   LEFT JOIN player_wins
-  ON players.id = matches.winner
+  ON matches_played.id = player_wins.id OR wins=0
   ORDER BY wins DESC;
