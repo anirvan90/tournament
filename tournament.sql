@@ -20,24 +20,11 @@ CREATE TABLE matches
 
 /* Create match count view */
 CREATE VIEW matches_played AS
-<<<<<<< HEAD
   SELECT id, name, COUNT(matches.match_id) AS played
   FROM players
   LEFT JOIN matches
   ON players.id = matches.winner OR players.id = matches.loser
   GROUP BY players.id;
-||||||| merged common ancestors
-  SELECT id, name, COUNT(players.id) AS played
-  FROM players, matches
-  WHERE players.id = matches.winner OR players.id = matches.loser
-  GROUP BY id;
-=======
-  SELECT id, name, COUNT(matches.match_id) AS played
-  FROM players
-  LEFT JOIN matches
-  ON players.id = matches.match_id
-  GROUP BY players.id;
->>>>>>> 107b45712f0a82a0e1987a7ded688e1f0594f665
 
 /* Create win count view */
 CREATE VIEW player_wins AS
