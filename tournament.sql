@@ -15,21 +15,23 @@ CREATE TABLE players (id SERIAL PRIMARY KEY, name TEXT);
 
 CREATE TABLE matches 
   (match_id SERIAL PRIMARY KEY, 
-  winner INTEGER NULL REFERENCES players(id), 
-  loser INTEGER NULL REFERENCES players(id));
+  winner INTEGER REFERENCES players(id), 
+  loser INTEGER REFERENCES players(id));
 
 /* Create match count view */
 CREATE VIEW matches_played AS
-  SELECT id, name, COUNT(players.id) AS played
-  FROM players, matches
-  WHERE players.id = matches.winner OR players.id = matches.loser
-  GROUP BY id;
+  SELECT id, name, COUNT(matches.match_id) AS played
+  FROM players
+  LEFT JOIN matches
+  ON players.id = matches.match_id
+  GROUP BY players.id;
 
 /* Create win count view */
 CREATE VIEW player_wins AS
   SELECT id, name, COUNT (matches.winner) AS wins
-  FROM players, matches
-  WHERE players.id = matches.winner
+  FROM players
+  LEFT JOIN matches
+  ON players.id = matches.winner
   GROUP BY id
   ORDER BY wins DESC;
 
@@ -37,8 +39,8 @@ CREATE VIEW player_wins AS
 CREATE VIEW standings AS
   SELECT matches_played.id, matches_played.name,
   COALESCE (player_wins.wins,0) AS wins,
-  matches_played.played
+  COALESCE (matches_played.played,0) AS played
   FROM matches_played
   LEFT JOIN player_wins
-  ON matches_played.id = player_wins.id OR wins=0
+  ON matches_played.id = player_wins.id
   ORDER BY wins DESC;
