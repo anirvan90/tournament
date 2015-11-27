@@ -38,3 +38,7 @@ CREATE VIEW standings AS
   LEFT JOIN player_wins
   ON matches_played.id = player_wins.id
   ORDER BY wins DESC;
+
+/*Create Unique Index to prevent rematches */
+CREATE UNIQUE INDEX matches_unique ON matches
+  (greatest(winner, loser), least (winner, loser));
