@@ -1,24 +1,18 @@
--- Table definitions for the tournament project.
---
--- Put your SQL 'create table' statements in this file; also 'create view'
--- statements if you choose to use it.
---
--- You can write comments in this file by starting them with two dashes, like
--- these lines here.
-
-/* Create DB and establish schema, drop first to ensure clean file */
+/* Create DB and establish schema, drop first to ensure clean file.*/
 DROP DATABASE tournament;
 CREATE DATABASE tournament;
 \c tournament;
 
+/* Create table to store player info */
 CREATE TABLE players (id SERIAL PRIMARY KEY, name TEXT);
 
+/*Create table to store match info */
 CREATE TABLE matches 
   (match_id SERIAL PRIMARY KEY, 
   winner INTEGER REFERENCES players(id), 
   loser INTEGER REFERENCES players(id));
 
-/* Create match count view */
+/* Create view to display the matches each player has played*/
 CREATE VIEW matches_played AS
   SELECT id, name, COUNT(matches.match_id) AS played
   FROM players
@@ -26,7 +20,7 @@ CREATE VIEW matches_played AS
   ON players.id = matches.winner OR players.id = matches.loser
   GROUP BY players.id;
 
-/* Create win count view */
+/* Create view to display each players wins */
 CREATE VIEW player_wins AS
   SELECT id, name, COUNT (matches.winner) AS wins
   FROM players
@@ -35,7 +29,7 @@ CREATE VIEW player_wins AS
   GROUP BY id
   ORDER BY wins DESC;
 
-/* Create standings view */
+/* Create view to display player standings */
 CREATE VIEW standings AS
   SELECT matches_played.id, matches_played.name,
   COALESCE (player_wins.wins,0) AS wins,
