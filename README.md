@@ -21,3 +21,5 @@ CITATIONS:
 
 Udacity: tournament_test.py is a modules created by Udacity. tournament.py is a module shell that was populated by Anirvan Awatramani and shell was defined by Udacity.
 
+Udacity forums and StackOverflow forums.
+
