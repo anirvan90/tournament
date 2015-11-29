@@ -1,8 +1,11 @@
 # Tournament Results
+This project consists of a Python module that uses a PostgreSQL database to keep track of players and matches in a game tournament. The tournament uses the Swiss System where each player is matched with an opponent with the same win/loss record. No players are eliminated. 
 
-SYNOPSIS: This project consists of a Python module that uses the PostgreSQL database to keep track of players and matches in a game tournament. The tournament uses the Swiss System where each player is matched with an opponent with the same win/loss record. No players are eliminated. 
-
-TECHNOLOGY STACK: Python - Scripting/API Template. PostgreSQL - Database
+### Tech Stack 
+* Python - Scripting/API Template. 
+* PostgreSQL - Database
+* Vagrant - Virtulization
+* Virtual Box - Virtual Machine
 
 SUGGESTED INSTALLATION: Install Vagrant and Virtual Box. Run the application from the VM command line. 
 DESCRIPTION: 
