@@ -27,7 +27,7 @@ All python scripts in the VM must be run with the python keyword preceding the f
 * VIEWS (player_wins, matches_played, standings) to simplify queries from the python script.
 * UNIQUE INDEX (matches_unique) to prevent rematches between to players.
 
-**tournament.py**: Python module consisting of functions that use _tournament.sql_
+**tournament.py**: Python module consisting of functions that use _tournament.sql_ database. This file uses the _psycopg2_ driver to use the PostgreSQL db. 
 
 **tournament_test.py**: Unit testing script that test functions from _tournament.py_. 
 
